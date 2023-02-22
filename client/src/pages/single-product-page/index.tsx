@@ -1,9 +1,10 @@
-import { Box, IconButton, Stack, styled, useTheme } from '@mui/material';
+import { Box, IconButton, Stack, styled } from '@mui/material';
 import Img from 'components/ui/img';
 import routes from 'navigation/routes';
 import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import ApiService from 'services/api-service';
+import * as Styled from './styled';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -29,7 +30,6 @@ const StyledSwiper = styled(Swiper)({
 
 const SingleProductPage = () => {
 
-  const theme = useTheme();
   const leftArrowRef = React.useRef<HTMLButtonElement | null>(null);
   const rightArrowRef = React.useRef<HTMLButtonElement | null>(null);
 
@@ -56,16 +56,7 @@ const SingleProductPage = () => {
           <Box component="pre">
             {JSON.stringify(product, null, 4)}
           </Box>
-          <Box sx={{
-            width: 600,
-            height: 400,
-            margin: 'auto',
-            position: 'relative',
-            [theme.breakpoints.down('sm')]: {
-              width: 400,
-            },
-          }}
-          >
+          <Styled.SwiperImageContent>
             <StyledSwiper
               modules={[Pagination, Navigation]}
               pagination={{ dynamicBullets: true, clickable: true }}
@@ -107,7 +98,7 @@ const SingleProductPage = () => {
                 <NavigateNextIcon sx={{ color: 'common.white', fontSize: 30 }} />
               </IconButton>
             </Stack>
-          </Box>
+            </Styled.SwiperImageContent>
         </Box>
       );
 };
