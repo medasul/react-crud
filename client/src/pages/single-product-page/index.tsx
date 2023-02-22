@@ -1,4 +1,4 @@
-import { Box, IconButton, Stack, styled } from '@mui/material';
+import { Box, IconButton, Stack, Typography, styled } from '@mui/material';
 import Img from 'components/ui/img';
 import routes from 'navigation/routes';
 import React from 'react';
@@ -53,8 +53,18 @@ const SingleProductPage = () => {
 
     return (
         <Box>
-          <Box component="pre">
-            {JSON.stringify(product, null, 4)}
+          <Box component="pre" display="flex" flexDirection="column" alignItems="center">
+         
+          <Typography variant="h3" sx={{ mb: 2 }}>{product.title}</Typography>
+      <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', mb: 2 }}>
+        <Typography variant="h5" sx={{ mr: 2 }}>Price:</Typography>
+        <Typography variant="h5">{product.price}</Typography>
+      </Box>
+      <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', mb: 2 }}>
+        <Typography variant="h5" sx={{ mr: 2 }}>Inventory:</Typography>
+        <Typography variant="h5">{product.inventory}</Typography>
+      </Box>
+      
           </Box>
           <Styled.SwiperImageContent>
             <StyledSwiper
