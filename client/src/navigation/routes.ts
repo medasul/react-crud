@@ -1,5 +1,3 @@
-
-
 const singleProductPageRoot = '/product/';
 
 // mes i dinaminius linkus neisime, tokie kaip single page nebus navigation'e
@@ -40,7 +38,7 @@ const routes = {
   createLink: (id: string | number) => `${singleProductPageRoot}${id}` }
 } as const;
 
-// 2 budas 
+// 2 budas
 export type Routes = typeof routes;
 export type RouteLink ={
 [Key in keyof Routes]: Routes[Key] extends string ? Routes[Key] : never
