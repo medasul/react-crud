@@ -1,7 +1,6 @@
 import { styled, Stack, Button } from '@mui/material';
 import { projectColors } from 'assets/variables';
 
-
 export const ProductsGrid = styled('div')(({ theme }) => (
   {
     display: 'grid',
@@ -30,7 +29,7 @@ export const ProductsGrid = styled('div')(({ theme }) => (
     @media (min-width: $lg) {
       grid-template-columns: repeat(4, 1fr),
     } */
-}
+  }
 ));
 
 export const ProductCardContent = styled(Stack)(({ theme }) => ({
@@ -49,7 +48,6 @@ export const ProductCardBottomContent = styled('div')({
 
 export const ProductCardInventory = styled('div')({
   fontSize: '1rem',
-  color: 'text.secondary',
   fontWeight: 600,
   marginBottom: '0.5rem',
   component: 'span',

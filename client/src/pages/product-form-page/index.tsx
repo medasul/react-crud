@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Stack,
   Typography,
-  Paper,
   Button,
 } from '@mui/material';
 import HiveIcon from '@mui/icons-material/Hive';
@@ -11,26 +10,14 @@ import ImagesField from './images-field';
 import InventoryField from './inventory-field';
 import PriceField from './price-field';
 import TitleField from './title-field';
+import * as Styled from './styled';
 
 const ProductFormPage = () => (
-  <Stack sx={{
-    py: { xs: 2, md: 6, xl: 10 },
-    px: 2,
-    alignItems: 'center',
-    backgroundColor: projectColors.bg,
-    height: '100vh',
-  }}
-  >
-    <Paper
-      component="form"
+  <Styled.PageLayout>
+    <Styled.Paper
       elevation={6}
-      sx={{
-        p: 3,
-        backgroundColor: projectColors.secondary,
-        width: (theme) => ({ xs: 1, sm: theme.breakpoints.values.sm }),
-      }}
     >
-      <Stack sx={{ gap: 2, alignItems: 'center' }}>
+      <Stack sx={{ gap: 2, alignItems: 'center' }} component="form">
         <HiveIcon sx={{ fontSize: 60, color: projectColors.primary }} />
         <Typography variant="h4" sx={{ color: projectColors.primary }}>Create new product</Typography>
 
@@ -54,8 +41,8 @@ const ProductFormPage = () => (
           Create
         </Button>
       </Stack>
-    </Paper>
-  </Stack>
+    </Styled.Paper>
+  </Styled.PageLayout>
 );
 
 export default ProductFormPage;
