@@ -5,6 +5,7 @@ import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import ApiService from 'services/api-service';
 import * as Styled from './styled';
+import { projectColors } from 'assets/variables';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -52,7 +53,8 @@ const SingleProductPage = () => {
 
 
     return (
-        <Box>
+      <Stack sx = {{ backgroundColor: projectColors.bg, height: '100vh',}}>
+        <Box >
           <Box component="pre" display="flex" flexDirection="column" alignItems="center">
          
           <Typography variant="h3" sx={{ mb: 2 }}>{product.title}</Typography>
@@ -110,6 +112,7 @@ const SingleProductPage = () => {
             </Stack>
             </Styled.SwiperImageContent>
         </Box>
+        </Stack>
       );
 };
 

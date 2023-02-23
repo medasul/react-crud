@@ -1,4 +1,5 @@
 import { Theme } from '@mui/material';
+import { projectColors } from 'assets/variables';
 
 export const navbarDesktopItemStyles = (theme: Theme) => ({
   alignSelf: 'stretch',
@@ -8,10 +9,10 @@ export const navbarDesktopItemStyles = (theme: Theme) => ({
   color: theme.palette.grey[200],
   cursor: 'pointer',
   '&:hover': {
-    backgroundColor: theme.palette.primary.dark,
     color: theme.palette.common.white,
+    color: projectColors.hoverAndActive,
   },
   '&.active': {
-    boxShadow: `inset 0 -4px 0 ${theme.palette.common.white}`,
+    boxShadow: `inset 0 -5px 0 ${projectColors.hoverAndActive}`,
   },
 });

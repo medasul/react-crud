@@ -4,6 +4,7 @@ const singleProductPageRoot = '/product/';
 
 const routes = {
   HomePage: '/',
+  ProductFormPage: '/create-product',
   SingleProductPage: {
     path: `${singleProductPageRoot}:id`,
   createLink: (id: string | number) => `${singleProductPageRoot}${id}` }
