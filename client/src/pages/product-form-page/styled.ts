@@ -34,6 +34,3 @@ export const Paper = styled(MuiPaper)(({ theme }) => ({
     width: theme.breakpoints.values.sm,
   },
 }));
-
-
-// *ProductFormPage, ne HouseFormPage, sekiau pamokos įrašą ir kartu pasileidus commita ta pati koki pasaket irasiau 
