@@ -5,7 +5,7 @@ import Img from 'components/ui/img';
 import routes from 'navigation/routes';
 import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import ApiService from 'services/api-service';
+import useProduct from 'hooks/use-product';
 import { projectColors } from 'assets/variables';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -34,18 +34,9 @@ const SingleProductPage = () => {
   const rightArrowRef = React.useRef<HTMLButtonElement | null>(null);
 
   const { id } = useParams();
-  const [product, setProduct] = React.useState<undefined | ProductModel>(undefined);
 
   // inicijuojamas parsiuntimas
-
-  React.useEffect(() => {
-    if (id !== undefined) {
-      (async () => {
-        const fetchedProduct = await ApiService.fetchProduct(id);
-        setProduct(fetchedProduct);
-      })();
-    }
-  }, []);
+  const [product] = useProduct(id);
 
   if (id === undefined) return <Navigate to={routes.HomePage} />;
   if (product === undefined) return null;

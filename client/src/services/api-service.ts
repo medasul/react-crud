@@ -1,4 +1,4 @@
-//from axios instance
+// from axios instance
 
 import axios from 'axios';
 

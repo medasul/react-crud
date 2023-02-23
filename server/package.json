@@ -4,16 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "json-server db.json -p 5024",
-    "dev": "nodemon --watch db.json --ext json --exec \"npm run server\""
+    "server": "json-server -w db.json -p 5024"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "json-server": "^0.17.1"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.20"
   }
+ 
 }

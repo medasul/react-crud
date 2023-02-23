@@ -1,4 +1,5 @@
 const singleProductPageRoot = '/product/';
+const updateProductPageRoot = '/update-product/';
 
 // mes i dinaminius linkus neisime, tokie kaip single page nebus navigation'e
 // is dinaminio routo nekursime statines nuorodos
@@ -14,6 +15,10 @@ const dynamicRoutes = {
   SingleProductPage: {
     path: `${singleProductPageRoot}:id`,
     createLink: (id: string | number) => `${singleProductPageRoot}${id}`,
+  },
+  UpdateProductPage: {
+    path: `${updateProductPageRoot}:id`,
+    createLink: (id: string | number) => `${updateProductPageRoot}${id}`,
   },
 } as const;
 

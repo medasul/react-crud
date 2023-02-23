@@ -66,3 +66,12 @@ export const ProductCardViewButton = styled(Button)(({ theme }) => ({
     color: projectColors.secondary,
   },
 }));
+
+export const ActionButtons = styled('div')(({ theme }) => ({
+  position: 'absolute',
+  right: 10,
+  top: 10,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(1),
+}));

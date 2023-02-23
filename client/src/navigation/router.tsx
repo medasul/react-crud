@@ -23,6 +23,10 @@ const router = createBrowserRouter([
         path: routes.SingleProductPage.path,
         element: <SingleProductPage />,
       },
+      {
+        path: routes.UpdateProductPage.path,
+        element: <ProductFormPage />,
+      },
     ],
   },
 ]);

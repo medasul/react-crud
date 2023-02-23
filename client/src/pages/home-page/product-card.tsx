@@ -9,6 +9,8 @@ import Img from 'components/ui/img';
 import { useNavigate } from 'react-router-dom';
 import routes from 'navigation/routes';
 import { projectColors } from 'assets/variables';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import * as Styled from './styled';
 
 type ProductCardProps = ProductModel;
@@ -23,7 +25,29 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const navigate = useNavigate();
 
   return (
-    <Stack sx={{ boxShadow: 4, backgroundColor: projectColors.secondary }}>
+    <Stack sx={{ boxShadow: 4, backgroundColor: projectColors.secondary, position: 'relative' }}>
+      <Styled.ActionButtons>
+        <Button
+          variant="contained"
+          color="warning"
+          size="small"
+          sx={{ minWidth: 'initial', p: 0.5 }}
+          title="Update"
+          onClick={() => navigate(routes.UpdateProductPage.createLink(id))}
+        >
+          <EditIcon />
+        </Button>
+        <Button
+          variant="contained"
+          color="error"
+          size="small"
+          sx={{ minWidth: 'initial', p: 0.5 }}
+          title="Delete"
+          onClick={() => console.log(`daroma bus užklausa į jSON serverį per ApiService, sulaukus ats. iš naujo atsiųs visus duomenis. id '${id}'`)}
+        >
+          <DeleteIcon />
+        </Button>
+      </Styled.ActionButtons>
       <Img src={images[0]} alt="" sx={{ aspectRatio: '1.42', width: 1 }} />
       <Styled.ProductCardContent>
         <Box sx={{ flexGrow: 1 }}>

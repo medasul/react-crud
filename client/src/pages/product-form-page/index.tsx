@@ -6,7 +6,9 @@ import {
 } from '@mui/material';
 import HiveIcon from '@mui/icons-material/Hive';
 import { projectColors } from 'assets/variables';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import routes from 'navigation/routes';
+import useProduct from 'hooks/use-product';
 import ImagesField from './images-field';
 import InventoryField from './inventory-field';
 import PriceField from './price-field';
@@ -15,6 +17,9 @@ import * as Styled from './styled';
 import { getProductFormValues } from './helpers';
 
 const ProductFormPage = () => {
+  const { id } = useParams();
+  const [product, loadingProductData] = useProduct(id);
+
   // po duomenu sukurimo nuvesti i pagr. page
   const navigate = useNavigate();
 
@@ -47,6 +52,7 @@ const ProductFormPage = () => {
 
           fetch('http://localhost:5024/products', {
             method: 'POST',
+            //  Indicates that the request body format is JSON
             headers: {
               'Content-Type': 'application/json',
             },
@@ -56,7 +62,7 @@ const ProductFormPage = () => {
               alert('Produktas sukurtas');
               formRef.current?.reset();
               // nuveda i pradini
-              navigate('/');
+              navigate(routes.HomePage);
             } else {
               alert('Produktas nesukurtas');
             }
@@ -71,6 +77,11 @@ const ProductFormPage = () => {
       }
     }
   };
+
+  if (loadingProductData) return null;
+
+  console.log('ATNAUJINAME DUOMENIS');
+  console.log(product);
 
   return (
     <Styled.PageLayout>
