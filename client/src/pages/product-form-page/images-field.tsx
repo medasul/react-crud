@@ -33,6 +33,7 @@ const ImagesField = () => {
           <TextField
             key={id}
             label="Image"
+            name="images"
             fullWidth
             variant="filled"
             size="small"

@@ -4,6 +4,7 @@ import { TextField } from '@mui/material';
 const TitleField = () => (
   <TextField
     label="Title"
+    name="title"
     fullWidth
     variant="filled"
     size="small"

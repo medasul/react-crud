@@ -19,16 +19,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
   inventory,
   images,
   price,
-}) => 
-
-{const navigate = useNavigate();
+}) => {
+  const navigate = useNavigate();
 
   return (
-    <Stack sx={{ boxShadow: 4, backgroundColor: projectColors.secondary}}>
+    <Stack sx={{ boxShadow: 4, backgroundColor: projectColors.secondary }}>
       <Img src={images[0]} alt="" sx={{ aspectRatio: '1.42', width: 1 }} />
       <Styled.ProductCardContent>
         <Box sx={{ flexGrow: 1 }}>
- 
+
           <Styled.ProductCardInventory>{inventory}</Styled.ProductCardInventory>
 
           <Styled.ProductCardBottomContent>
@@ -38,7 +37,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
         </Box>
 
-        <Button variant ="outlined"
+        <Button
+          variant="outlined"
           sx={{
             mt: 3,
             color: projectColors.primary,
@@ -51,9 +51,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
             },
           }}
-          onClick={() => navigate(routes.SingleProductPage.createLink(id))}>View</Button>
+          onClick={() => navigate(routes.SingleProductPage.createLink(id))}
+        >
+          View
+
+        </Button>
       </Styled.ProductCardContent>
     </Stack>
-);}
+  );
+};
 
 export default ProductCard;

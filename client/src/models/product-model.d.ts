@@ -1,4 +1,4 @@
-//failo pletinys d.ts - galima aprasius d.ts ji tureti viesai ir jo neimportuoti
+// failo pletinys d.ts - galima aprasius d.ts ji tureti viesai ir jo neimportuoti
 
 type ProductModel = {
   id: string,

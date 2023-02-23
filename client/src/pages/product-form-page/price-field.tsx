@@ -4,6 +4,7 @@ import { TextField } from '@mui/material';
 const PriceField = () => (
   <TextField
     label="Price"
+    name="price"
     type="number"
     inputProps={{ step: '0.01' }}
     fullWidth
