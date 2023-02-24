@@ -1,7 +1,15 @@
 import React from 'react';
-import { TextField } from '@mui/material';
+import { TextField, TextFieldProps } from '@mui/material';
 
-const PriceField = () => (
+type PriceFieldProps = {
+  color: TextFieldProps['color'],
+  defaultPrice?: string,
+};
+
+const PriceField: React.FC<PriceFieldProps> = ({
+  color,
+  defaultPrice,
+}) => (
   <TextField
     label="Price"
     name="price"
@@ -10,6 +18,8 @@ const PriceField = () => (
     fullWidth
     variant="filled"
     size="small"
+    color={color}
+    defaultValue={defaultPrice}
   />
 );
 

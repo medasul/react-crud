@@ -5,7 +5,6 @@ import {
   Button,
 } from '@mui/material';
 import HiveIcon from '@mui/icons-material/Hive';
-import { projectColors } from 'assets/variables';
 import { useNavigate, useParams } from 'react-router-dom';
 import routes from 'navigation/routes';
 import useProduct from 'hooks/use-product';
@@ -15,10 +14,19 @@ import PriceField from './price-field';
 import TitleField from './title-field';
 import * as Styled from './styled';
 import { getProductFormValues } from './helpers';
+import { getModeData } from './data';
 
 const ProductFormPage = () => {
   const { id } = useParams();
   const [product, loadingProductData] = useProduct(id);
+
+  const mode = id !== undefined ? 'edit' : 'create';
+  const {
+    title,
+    btnText,
+    color,
+    colorMain,
+  } = getModeData(mode);
 
   // po duomenu sukurimo nuvesti i pagr. page
   const navigate = useNavigate();
@@ -32,42 +40,69 @@ const ProductFormPage = () => {
 
     try {
       const values = getProductFormValues(formRef.current);
-      console.log('Vykdomas sukūrimas');
-      console.log(values);
+      if (mode === 'create') {
+        // SUKURIMAS
+
+        fetch('http://localhost:5024/products')
+          .then((response) => response.json())
+          .then((data) => {
+          // randu auksciausia id is json server duomenu
+            const maxId = Math.max(...data.map((product: any) => Number(product.id)));
+
+            // nustatau id
+            const newProduct = {
+              id: String(maxId + 1),
+              ...values,
+            };
+            // sukurimas
+
+            fetch('http://localhost:5024/products', {
+              method: 'POST',
+              //  Indicates that the request body format is JSON
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(newProduct), // body: JSON.stringify(values)
+            }).then((response) => {
+              if (response.ok) {
+                console.log('Product created successfully');
+                formRef.current?.reset();
+                // nuveda i pradini
+                navigate(routes.HomePage);
+              } else {
+                console.error('Failed to create product');
+              }
+            });
+          });
+
+        // TODO: SUKURIMO PABAIGA
+        console.log('Vykdomas sukūrimas');
+        console.log(values);
+      } else {
+        // ATNAUJINIMAS
+
+        fetch(`http://localhost:5024/products/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id, ...values }), // (values),
+        }).then((response) => {
+          if (response.ok) {
+            console.log('Product updated successfully');
+            navigate(routes.HomePage);
+          } else {
+            console.error('Failed to update product');
+          }
+        });
+
+        // ATNAUJINIMO PABAIGA
+        console.log('Vykdomas atnaujinimas');
+        console.log({ id, ...values });
+      }
 
       // gauti sekanti id is json server
 
-      fetch('http://localhost:5024/products')
-        .then((response) => response.json())
-        .then((data) => {
-          // randu auksciausia id is json server duomenu
-          const maxId = Math.max(...data.map((product: any) => Number(product.id)));
-
-          // nustatau id
-          const newProduct = {
-            id: String(maxId + 1),
-            ...values,
-          };
-          // sukurimas
-
-          fetch('http://localhost:5024/products', {
-            method: 'POST',
-            //  Indicates that the request body format is JSON
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newProduct), // body: JSON.stringify(values)
-          }).then((response) => {
-            if (response.ok) {
-              alert('Produktas sukurtas');
-              formRef.current?.reset();
-              // nuveda i pradini
-              navigate(routes.HomePage);
-            } else {
-              alert('Produktas nesukurtas');
-            }
-          });
-        });
       // error catch
     } catch (error) {
       if (error instanceof Error) {
@@ -94,29 +129,31 @@ const ProductFormPage = () => {
           onSubmit={handleSubmit}
           ref={formRef}
         >
-          <HiveIcon sx={{ fontSize: 60, color: projectColors.primary }} />
-          <Typography variant="h4" sx={{ color: projectColors.primary }}>Create new product</Typography>
+          <HiveIcon sx={{ fontSize: 60, color: colorMain }} />
+          <Typography variant="h4" color={colorMain}>{title}</Typography>
 
-          <TitleField />
-          <PriceField />
-          <InventoryField />
-          <ImagesField />
+          <TitleField
+            color={color}
+            defaultTitle={product?.title}
+          />
+          <PriceField
+            color={color}
+            defaultPrice={product?.price.slice(0, -1)}
+          />
+          <InventoryField
+            color={color}
+            defaultInventory={product?.inventory}
+          />
+          <ImagesField color={color} colorMain={colorMain} defaultImages={product?.images} />
 
           <Button
             variant="contained"
-            sx={{
-              backgroundColor: projectColors.primary,
-              '&:hover':
-            {
-              backgroundColor: projectColors.primary,
-              color: projectColors.hoverAndActive,
-            },
-            }}
+            color={color}
             size="large"
             fullWidth
             type="submit"
           >
-            Create
+            {btnText}
           </Button>
         </Stack>
       </Styled.Paper>

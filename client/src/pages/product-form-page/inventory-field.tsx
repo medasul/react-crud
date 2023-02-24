@@ -1,13 +1,23 @@
 import React from 'react';
-import { TextField } from '@mui/material';
+import { TextField, TextFieldProps } from '@mui/material';
 
-const InventoryField = () => (
+type InventoryFieldProps = {
+  color: TextFieldProps['color'],
+  defaultInventory?: string,
+};
+
+const InventoryField: React.FC<InventoryFieldProps> = ({
+  color,
+  defaultInventory,
+}) => (
   <TextField
     label="Inventory"
     name="inventory"
     fullWidth
     variant="filled"
     size="small"
+    color={color}
+    defaultValue={defaultInventory}
   />
 );
 
