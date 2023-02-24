@@ -3,7 +3,10 @@
 type ProductModel = {
   id: string,
   title: string,
-  inventory: string,
+  inventory: {
+    status: string,
+    units: number
+  },
   images: string [],
   price: string,
 };

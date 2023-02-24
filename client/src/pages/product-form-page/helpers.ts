@@ -8,9 +8,11 @@ export const getProductFormValues = (form: HTMLFormElement | undefined): Omit<Pr
   if (typeof title !== 'string') throw new Error('Missing Title');
   if (title.length < 2) throw new Error('title must have at least 2 symbols');
 
-  const inventory = formData.get('inventory');
-  if (typeof inventory !== 'string') throw new Error('Missing Inventory');
-  if (inventory.length < 2) throw new Error('inventory must have at least 2 symbols');
+  const inventoryString = formData.get('inventory');
+  const unitsString = formData.get('units');
+  if (typeof inventoryString !== 'string') throw new Error('Missing Inventory');
+  const status = inventoryString;
+  const units = Number(unitsString);
 
   const price = formData.get('price');
   if (typeof price !== 'string') throw new Error('Missing price');
@@ -21,7 +23,7 @@ export const getProductFormValues = (form: HTMLFormElement | undefined): Omit<Pr
 
   const values = {
     title,
-    inventory,
+    inventory: { status: status as 'In stock' | 'Out of stock', units },
     price: `${price}€`,
     images: images.filter((img) => img !== ''),
   };

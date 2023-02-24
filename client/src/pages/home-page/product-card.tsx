@@ -24,6 +24,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const navigate = useNavigate();
 
+  let isInStock = false;
+  if (inventory.units !== 0) { isInStock = true; }
+
   return (
     <Stack sx={{ boxShadow: 4, backgroundColor: projectColors.secondary, position: 'relative' }}>
       <Styled.ActionButtons>
@@ -52,7 +55,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <Styled.ProductCardContent>
         <Box sx={{ flexGrow: 1 }}>
 
-          <Styled.ProductCardInventory>{inventory}</Styled.ProductCardInventory>
+          <Styled.ProductCardInventory>
+            {' '}
+            {inventory.status}
+            {' '}
+            {isInStock ? `(${inventory.units})` : false}
+
+          </Styled.ProductCardInventory>
 
           <Styled.ProductCardBottomContent>
             <Typography sx={{ fontSize: '1.3rem', fontWeight: 600, color: projectColors.dark }}>{title}</Typography>

@@ -47,6 +47,7 @@ const ProductFormPage = () => {
           .then((response) => response.json())
           .then((data) => {
           // randu auksciausia id is json server duomenu
+            // eslint-disable-next-line @typescript-eslint/no-shadow
             const maxId = Math.max(...data.map((product: any) => Number(product.id)));
 
             // nustatau id
@@ -82,11 +83,11 @@ const ProductFormPage = () => {
         // ATNAUJINIMAS
 
         fetch(`http://localhost:5024/products/${id}`, {
-          method: 'PUT',
+          method: 'PATCH', // PUT - ANT VIRSAUS
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ id, ...values }), // (values),
+          body: JSON.stringify(values), // (values),
         }).then((response) => {
           if (response.ok) {
             console.log('Product updated successfully');
@@ -142,7 +143,8 @@ const ProductFormPage = () => {
           />
           <InventoryField
             color={color}
-            defaultInventory={product?.inventory}
+            defaultInventory={product?.inventory
+               || { status: 'Out of stock', units: 0 }}
           />
           <ImagesField color={color} colorMain={colorMain} defaultImages={product?.images} />
 

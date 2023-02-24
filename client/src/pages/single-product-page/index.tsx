@@ -71,7 +71,14 @@ const SingleProductPage = () => {
           }}
           >
             <Typography variant="h5" sx={{ mr: 2 }}>Inventory:</Typography>
-            <Typography variant="h5">{product.inventory}</Typography>
+            <Typography variant="h5">
+              {product.inventory.status}
+              {' '}
+              (
+              {product.inventory.units}
+              )
+
+            </Typography>
           </Box>
 
         </Box>
