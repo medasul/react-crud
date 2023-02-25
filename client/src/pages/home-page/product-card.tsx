@@ -27,6 +27,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
   let isInStock = false;
   if (inventory.units !== 0) { isInStock = true; }
 
+  const handleDelete = () => {
+    //  DELETE uzklausa i API kad istrintu
+    fetch(`http://localhost:5024/products/${id}`, {
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then(() => {
+        console.log('Product deleted successfully');
+        navigate(routes.HomePage, { replace: true });
+      })
+      .catch((error) => console.error(error));
+  };
+
   return (
     <Stack sx={{ boxShadow: 4, backgroundColor: projectColors.secondary, position: 'relative' }}>
       <Styled.ActionButtons>
@@ -46,7 +59,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           size="small"
           sx={{ minWidth: 'initial', p: 0.5 }}
           title="Delete"
-          onClick={() => console.log(`daroma bus užklausa į jSON serverį per ApiService, sulaukus ats. iš naujo atsiųs visus duomenis. id '${id}'`)}
+          onClick={handleDelete}
         >
           <DeleteIcon />
         </Button>
