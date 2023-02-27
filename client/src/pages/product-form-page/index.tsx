@@ -8,6 +8,7 @@ import HiveIcon from '@mui/icons-material/Hive';
 import { useNavigate, useParams } from 'react-router-dom';
 import routes from 'navigation/routes';
 import useProduct from 'hooks/use-product';
+import ApiService from 'services/api-service';
 import ImagesField from './images-field';
 import InventoryField from './inventory-field';
 import PriceField from './price-field';
@@ -35,61 +36,30 @@ const ProductFormPage = () => {
 
   // priimame event, kad submittinus nepersikrautu page is naujo kas karta
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     try {
       const values = getProductFormValues(formRef.current);
       if (mode === 'create') {
-        // SUKURIMAS
-
-        fetch('http://localhost:5024/products')
-          .then((response) => response.json())
-          .then((data) => {
-          // randu auksciausia id is json server duomenu
-            // eslint-disable-next-line @typescript-eslint/no-shadow
-            const maxId = Math.max(...data.map((product: any) => Number(product.id)));
-
-            // nustatau id
-            const newProduct = {
-              id: String(maxId + 1),
-              ...values,
-            };
-            // sukurimas
-
-            fetch('http://localhost:5024/products', {
-              method: 'POST',
-              //  Indicates that the request body format is JSON
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(newProduct), // body: JSON.stringify(values)
-            }).then((response) => {
-              if (response.ok) {
-                console.log('Product created successfully');
-                formRef.current?.reset();
-                // nuveda i pradini
-                navigate(routes.HomePage);
-              } else {
-                console.error('Failed to create product');
-              }
-            });
-          });
-
+        await ApiService.addProduct(values).then((response) => {
+          if (response) {
+            console.log('Product created successfully');
+            formRef.current?.reset();
+            // nuveda i pradini
+            navigate(routes.HomePage);
+          } else {
+            console.error('Failed to create product');
+          }
+        });
         // TODO: SUKURIMO PABAIGA
         console.log('Vykdomas sukūrimas');
         console.log(values);
       } else {
         // ATNAUJINIMAS
 
-        fetch(`http://localhost:5024/products/${id}`, {
-          method: 'PATCH', // PUT - ANT VIRSAUS
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(values), // (values),
-        }).then((response) => {
-          if (response.ok) {
+        await ApiService.updateProduct(id as any, values).then((response) => {
+          if (response) {
             console.log('Product updated successfully');
             navigate(routes.HomePage);
           } else {
@@ -101,10 +71,6 @@ const ProductFormPage = () => {
         console.log('Vykdomas atnaujinimas');
         console.log({ id, ...values });
       }
-
-      // gauti sekanti id is json server
-
-      // error catch
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message);

@@ -13,7 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import * as Styled from './styled';
 
-type ProductCardProps = ProductModel;
+type ProductCardProps = ProductModel & {handleDelete: VoidFunction };
 
 const ProductCard: React.FC<ProductCardProps> = ({
   id,
@@ -21,12 +21,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
   inventory,
   images,
   price,
+  handleDelete,
 }) => {
   const navigate = useNavigate();
 
   let isInStock = false;
   if (inventory.units !== 0) { isInStock = true; }
 
+  /*
   const handleDelete = () => {
     //  DELETE uzklausa i API kad istrintu
     fetch(`http://localhost:5024/products/${id}`, {
@@ -39,7 +41,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       })
       .catch((error) => console.error(error));
   };
-
+*/
   return (
     <Stack sx={{ boxShadow: 4, backgroundColor: projectColors.secondary, position: 'relative' }}>
       <Styled.ActionButtons>

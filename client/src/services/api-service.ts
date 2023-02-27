@@ -15,6 +15,7 @@ const api = axios.create({
 });
 
 // 1 axios uzklausa
+type CreateProductRequest = Omit<ProductModel, 'id'>;
 
 const fetchProducts = async () => {
   const response = await api.get<ProductModel[]>('/products');
@@ -27,9 +28,28 @@ const fetchProduct = async (id: string | number) => {
   return response.data;
 };
 
+const addProduct = async (productData: CreateProductRequest) => {
+  const response = await api.post<ProductModel>('/products', productData);
+
+  return response.data;
+};
+
+const updateProduct = async (id: string, productData: Omit<ProductModel, 'id'>) => {
+  const response = await api.patch<ProductModel[]>(`/products/${id}`, productData);
+
+  return response.data;
+};
+
+const deleteProduct = async (id: string | number) => {
+  await api.delete(`products/${id}`);
+};
+
 const ApiService = {
   fetchProducts,
   fetchProduct,
+  addProduct,
+  updateProduct,
+  deleteProduct,
 };
 
 export default ApiService;

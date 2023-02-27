@@ -12,6 +12,12 @@ const HomePage = () => {
 
   const navigate = useNavigate();
 
+  const handleDelete = async (id: string) => {
+    await ApiService.deleteProduct(id);
+    const fetchedProducts = await ApiService.fetchProducts();
+    setProducts(fetchedProducts);
+  };
+
   // gale tuscias masyvas- nurodom dependency masyve, kad priklausomybiu nebus.
   // Tai prives prie to, kad si useEffect funkcija vyks tik pirmaji komponento uzsikrovimo karta
 
@@ -45,7 +51,12 @@ const HomePage = () => {
         </Button>
         <Styled.ProductsGrid>
           {products.map((productProps) => (
-            <ProductCard key={productProps.id} {...productProps} />))}
+            <ProductCard
+              key={productProps.id}
+              {...productProps}
+              handleDelete={() => { handleDelete(productProps.id); }}
+            />
+          ))}
         </Styled.ProductsGrid>
       </Container>
     </Stack>
